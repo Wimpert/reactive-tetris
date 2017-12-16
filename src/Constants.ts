@@ -1,9 +1,9 @@
 import {Direction} from "./Types";
 
-export const STARTING_SPEED = 1000
+export const STARTING_SPEED = 1000;
 
 export const RED = "RED"
-export const YELLOW = "YELLOW";
+export const BROWN = "BROWN";
 export const BLUE = "BLUE";
 export const GREEN = "GREEN";
 export const ORANGE = "ORANGE";

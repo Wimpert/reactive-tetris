@@ -48,7 +48,7 @@ function getOriginIndividualBlocks(block:Block) : [Point2D]{
 }
 
 
-function drawMatrix(ctx : CanvasRenderingContext2D, matrixOrigin : Point2D ,matrix: [Cell[]]){
+function drawMatrix(ctx : CanvasRenderingContext2D, matrixOrigin : Point2D ,matrix: Cell[][]){
 
     matrix.forEach( (row, rowIndex) => {
         row.forEach( (cell, elementPositionInRow) => {
@@ -56,14 +56,14 @@ function drawMatrix(ctx : CanvasRenderingContext2D, matrixOrigin : Point2D ,matr
                 paintCell(ctx, getElementOrigin(matrixOrigin, rowIndex, elementPositionInRow), cell.color);
             }
         });
-    })
+    });
 }
 
 
-function getElementOrigin(blockOrigin : Point2D, rowIndex : number, elementPositionInrow : number) {
+export function getElementOrigin(blockOrigin : Point2D, rowIndex : number, elementPositionInrow : number) {
     var origin : Point2D = {x:0,y:0};
-    origin.x = blockOrigin.x + (rowIndex);
-    origin.y = blockOrigin.y + (elementPositionInrow);
+    origin.x = blockOrigin.x + (elementPositionInrow);
+    origin.y = blockOrigin.y + (rowIndex);
     return origin;
 }
 

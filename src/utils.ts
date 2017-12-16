@@ -1,35 +1,32 @@
 import {Block, BlockType, Cell, Direction, Field} from "./Types";
-import {COLS, ROWS} from "./canvas";
+import {COLS, getElementOrigin, ROWS} from "./canvas";
 import {DOWN, UP} from "./Constants";
 
 export function move(block : Block, obj : {direction:Direction, field:Field}, index: number){
+    if(blockHaslanded(undefined)){
+        return getRandomBlock();
+    }
+
     if(moveCanHappen(block,obj.direction, obj.field)){
         let directionName = obj.direction.name;
         if(directionName == UP){
-            console.log("We need to rotate");
+            block.rotateRight();
         } else {
             block.origin.x += 1*obj.direction.x
             block.origin.y += 1*obj.direction.y
         }
     }
-
-
    return block;
 }
 
 export function getRandomBlock(){
-    return new Block({x:2, y:4}, BlockType.LSHAPELEFT);
+    return new Block({x:COLS/2, y:1}, Math.round(Math.random()*4));
 }
 
-export function genenrateStratscene(){
-    return {block: getRandomBlock(), landedBlocks: [[false]]}
-}
-
-export function test(){
-    console.log("test");
-}
 
 export function isBlockLanded(block:Block, field:Field) : boolean {
+
+
     return getRandBool();
 }
 
@@ -37,12 +34,7 @@ export function isBlockLanded(block:Block, field:Field) : boolean {
 //this method checks is a operation can take place, for if the
 //block is not hitting the outher wall of the bottom of the field
 export function moveCanHappen(block : Block, direction : Direction , field:Field){
-   /* var r = Math.random()
-    if(r > 0.5 ){
-        return true;
-    }
-    console.log("filtedout");
-    return false;*/
+
    return true;
 }
 
@@ -61,10 +53,9 @@ export function generateStartingField() :Field{
     return field;
 }
 
-export function haslanded([], _: number){
+export function blockHaslanded(scene) : boolean{
     var r = Math.random()
-    if(r > 0.1){
-        console.log("landed");
+    if(r > 0.96){
         return true;
     }
     return false;
@@ -72,4 +63,16 @@ export function haslanded([], _: number){
 
 export function getRandBool(){
     return Math.random() > 0.5 ? true : false;
+}
+
+export function mergeBlockIntoField(block:Block, field:Field){
+    console.log("merging");
+    block.matrix.forEach( (row, rowIndex) => {
+        row.forEach( (cell, elementPositionInRow) => {
+            if(cell.filled) {
+                let cellOrigin = getElementOrigin(block.origin,rowIndex,elementPositionInRow)
+                field.cells[cellOrigin.y][cellOrigin.x] =  cell;
+            }
+        });
+    });
 }

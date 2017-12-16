@@ -10,10 +10,10 @@ import "rxjs/add/operator/merge";
 import {createCanvasElement, renderScene} from "./canvas";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import "rxjs/add/operator/withLatestFrom";
-import {Block, BlockType, Direction, Field, Scene} from "./Types";
+import {Block, Direction, Field, Scene} from "./Types";
 import {
-    generateStartingField, getRandBool, getRandomBlock, haslanded, isBlockLanded, move,
-    moveCanHappen
+    blockHaslanded,
+    generateStartingField, getRandomBlock, mergeBlockIntoField, move
 } from "./utils";
 import "rxjs/add/operator/scan";
 import "rxjs/add/operator/filter";
@@ -21,6 +21,7 @@ import "rxjs/add/operator/combineLatest";
 import "rxjs/add/operator/do";
 import "rxjs/add/operator/share";
 import {combineLatest} from "rxjs/observable/combineLatest";
+import "rxjs/add/operator/startWith";
 
 /**
  * Create canvas element and append it to the page
@@ -33,6 +34,7 @@ document.body.appendChild(canvas);
 
 //the game pulling down the block:
 let source$ : Observable<Direction> = interval(STARTING_SPEED)
+    .startWith(99)
     //map to Down:
     .map((x) => DIRECTIONS[40])
     .share();
@@ -63,23 +65,24 @@ let block$ : Observable<Block> = blockOperations$
 //this will emit true, if the block has 'touchdown', false if it is still floating:
 let blockLanded$ = block$.withLatestFrom(field$)
     .map(x => {
-        //here we check if the block has 'touchdown'
-        return isBlockLanded(x[0],x[1]);
-    }).share();
+        let scene : Scene = { field : x[1] , block : x[0]};
+        return scene;
+    })
+    .map(blockHaslanded)
+    .share();
 
 
 
 blockLanded$.withLatestFrom(field$,block$)
-    .subscribe(x => console.log("here: " + x))
+    .subscribe((x) => {
+    //is it landed?
+    if(x[0]) {
+        //get the block:
+        let block : Block = x[2];
+        let field : Field = x[1];
 
-blockLanded$.subscribe((x) => {
-    //console.log("has landed: " + x);
-    if(x) {
-        //this means a block has landed, so we need to integrated it into the field:
-        //and check is a line was formed:
-        // then we do all the logic, and emit the newly updated field
-        //console.log("new field");
-        field$.next(generateStartingField());
+        mergeBlockIntoField(block,field);
+        field$.next(field);
     } //if false no need for action:
 });
 
