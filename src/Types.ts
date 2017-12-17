@@ -65,7 +65,7 @@ export class Block {
                 }],
                     [{filled: true, color: ORANGE}, {filled: true, color: ORANGE}, {filled: false, color: ORANGE}]];
                 break;
-            case BlockType.LSHAPELEFT:
+            case BlockType.STACKEDLEFT:
                 this.matrix = [[{filled: true, color: PURPLE}, {filled: true, color: PURPLE}, {
                     filled: false,
                     color: PURPLE
@@ -103,7 +103,7 @@ export class Block {
 
 
 export enum BlockType {
-    LONG = 1,
+    LONG = 0,
     SQUARE,
     LSHAPELEFT,
     LSHAPERIGHT,

@@ -34,7 +34,7 @@ document.body.appendChild(canvas);
 
 //the game pulling down the block:
 let source$ : Observable<Direction> = interval(STARTING_SPEED)
-    .startWith(99)
+    .startWith(0)
     //map to Down:
     .map((x) => DIRECTIONS[40])
     .share();
@@ -76,7 +76,8 @@ let blockLanded$ = block$.withLatestFrom(field$)
 blockLanded$.withLatestFrom(field$,block$)
     .subscribe((x) => {
     //is it landed?
-    if(x[0]) {
+        //console.log(x);
+        if(x[0]) {
         //get the block:
         let block : Block = x[2];
         let field : Field = x[1];
