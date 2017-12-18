@@ -1,6 +1,6 @@
 import {Direction} from "./Types";
 
-export const STARTING_SPEED = 500;
+export const STARTING_SPEED = 5000;
 
 export const RED = "RED"
 export const BROWN = "BROWN";

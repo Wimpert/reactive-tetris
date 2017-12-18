@@ -4,8 +4,7 @@
     <list default="true" id="6c42ff37-c8ab-430e-b25a-c9f3146d9aae" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/src/Constants.ts" afterPath="$PROJECT_DIR$/src/Constants.ts" />
-      <change beforePath="$PROJECT_DIR$/src/Types.ts" afterPath="$PROJECT_DIR$/src/Types.ts" />
-      <change beforePath="$PROJECT_DIR$/src/index.ts" afterPath="$PROJECT_DIR$/src/index.ts" />
+      <change beforePath="$PROJECT_DIR$/src/canvas.ts" afterPath="$PROJECT_DIR$/src/canvas.ts" />
       <change beforePath="$PROJECT_DIR$/src/utils.ts" afterPath="$PROJECT_DIR$/src/utils.ts" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -16,7 +15,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.4504749">
+    <splitter split-orientation="horizontal" split-proportion="0.275441">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="tsconfig.json" pinned="false" current-in-tab="false">
@@ -32,8 +31,8 @@
           <file leaf-file-name="index.ts" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/index.ts">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="446">
-                  <caret line="70" column="24" lean-forward="false" selection-start-line="70" selection-start-column="24" selection-end-line="70" selection-end-column="24" />
+                <state relative-caret-position="395">
+                  <caret line="75" column="42" lean-forward="true" selection-start-line="75" selection-start-column="42" selection-end-line="75" selection-end-column="42" />
                   <folding>
                     <element signature="e#909#967#0" expanded="false" />
                     <element signature="e#1863#1919#0" expanded="false" />
@@ -77,7 +76,7 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="canvas.ts" pinned="false" current-in-tab="true">
+          <file leaf-file-name="canvas.ts" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/canvas.ts">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="45">
@@ -87,13 +86,18 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="utils.ts" pinned="false" current-in-tab="false">
+          <file leaf-file-name="utils.ts" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/utils.ts">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="14">
-                  <caret line="52" column="33" lean-forward="true" selection-start-line="52" selection-start-column="33" selection-end-line="52" selection-end-column="33" />
+                <state relative-caret-position="527">
+                  <caret line="56" column="47" lean-forward="false" selection-start-line="56" selection-start-column="47" selection-end-line="56" selection-end-column="47" />
                   <folding>
                     <element signature="e#0#72#0" expanded="true" />
+                    <element signature="n#!!block;n#move#0" expanded="false" />
+                    <element signature="n#!!block;n#getRandomBlock#0" expanded="false" />
+                    <element signature="n#!!block;n#generateStartingField#0" expanded="false" />
+                    <element signature="n#!!block;n#blockHaslanded#0" expanded="false" />
+                    <element signature="n#!!block;n#mergeBlockIntoField#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -130,8 +134,8 @@
           <file leaf-file-name="Constants.ts" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/Constants.ts">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="150">
-                  <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+                <state relative-caret-position="30">
+                  <caret line="2" column="32" lean-forward="false" selection-start-line="2" selection-start-column="32" selection-end-line="2" selection-end-column="32" />
                   <folding />
                 </state>
               </provider>
@@ -180,10 +184,10 @@
         <option value="$PROJECT_DIR$/src/utils.tc.ts" />
         <option value="$PROJECT_DIR$/dist/index.html" />
         <option value="$PROJECT_DIR$/src/Types.ts" />
-        <option value="$PROJECT_DIR$/src/utils.ts" />
         <option value="$PROJECT_DIR$/src/index.ts" />
-        <option value="$PROJECT_DIR$/src/Constants.ts" />
         <option value="$PROJECT_DIR$/src/canvas.ts" />
+        <option value="$PROJECT_DIR$/src/Constants.ts" />
+        <option value="$PROJECT_DIR$/src/utils.ts" />
       </list>
     </option>
   </component>
@@ -389,12 +393,14 @@
       <workItem from="1513259171992" duration="5761000" />
       <workItem from="1513345529191" duration="4015000" />
       <workItem from="1513412440290" duration="11060000" />
-      <workItem from="1513500117978" duration="4746000" />
+      <workItem from="1513500117978" duration="6940000" />
+      <workItem from="1513589291742" duration="32000" />
+      <workItem from="1513593906030" duration="2132000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="51282000" />
+    <option name="totallyTimeSpent" value="55640000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="404" y="0" width="1516" height="1200" extended-state="0" />
@@ -406,7 +412,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17657498" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2883762" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15042374" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -493,6 +499,11 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#72#0" expanded="true" />
+            <element signature="n#!!block;n#move#0" expanded="false" />
+            <element signature="n#!!block;n#getRandomBlock#0" expanded="false" />
+            <element signature="n#!!block;n#generateStartingField#0" expanded="false" />
+            <element signature="n#!!block;n#blockHaslanded#0" expanded="false" />
+            <element signature="n#!!block;n#mergeBlockIntoField#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -589,6 +600,11 @@
           <caret line="3" column="16" lean-forward="false" selection-start-line="3" selection-start-column="16" selection-end-line="3" selection-end-column="16" />
           <folding>
             <element signature="e#0#72#0" expanded="true" />
+            <element signature="n#!!block;n#move#0" expanded="false" />
+            <element signature="n#!!block;n#getRandomBlock#0" expanded="false" />
+            <element signature="n#!!block;n#generateStartingField#0" expanded="false" />
+            <element signature="n#!!block;n#blockHaslanded#0" expanded="false" />
+            <element signature="n#!!block;n#mergeBlockIntoField#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -607,6 +623,11 @@
           <caret line="3" column="24" lean-forward="false" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
           <folding>
             <element signature="e#0#72#0" expanded="true" />
+            <element signature="n#!!block;n#move#0" expanded="false" />
+            <element signature="n#!!block;n#getRandomBlock#0" expanded="false" />
+            <element signature="n#!!block;n#generateStartingField#0" expanded="false" />
+            <element signature="n#!!block;n#blockHaslanded#0" expanded="false" />
+            <element signature="n#!!block;n#mergeBlockIntoField#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -789,10 +810,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-            <marker date="1512982103716" expanded="true" signature="70449:70458" ph="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -808,10 +825,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-            <marker date="1512982103716" expanded="true" signature="70449:70458" ph="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -839,22 +852,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="19" lean-forward="false" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webpack.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="2" lean-forward="false" selection-start-line="24" selection-start-column="2" selection-end-line="24" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tsconfig.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -867,6 +864,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="9" column="8" lean-forward="false" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webpack.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="2" lean-forward="false" selection-start-line="24" selection-start-column="2" selection-end-line="24" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="19" lean-forward="false" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="19" />
           <folding />
         </state>
       </provider>
@@ -899,8 +912,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/index.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="446">
-          <caret line="70" column="24" lean-forward="false" selection-start-line="70" selection-start-column="24" selection-end-line="70" selection-end-column="24" />
+        <state relative-caret-position="395">
+          <caret line="75" column="42" lean-forward="true" selection-start-line="75" selection-start-column="42" selection-end-line="75" selection-end-column="42" />
           <folding>
             <element signature="e#909#967#0" expanded="false" />
             <element signature="e#1863#1919#0" expanded="false" />
@@ -909,29 +922,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="14">
-          <caret line="52" column="33" lean-forward="true" selection-start-line="52" selection-start-column="33" selection-end-line="52" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#72#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Constants.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/canvas.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="3" column="21" lean-forward="false" selection-start-line="3" selection-start-column="21" selection-end-line="3" selection-end-column="21" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Constants.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="32" lean-forward="false" selection-start-line="2" selection-start-column="32" selection-end-line="2" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="56" column="47" lean-forward="false" selection-start-line="56" selection-start-column="47" selection-end-line="56" selection-end-column="47" />
+          <folding>
+            <element signature="e#0#72#0" expanded="true" />
+            <element signature="n#!!block;n#move#0" expanded="false" />
+            <element signature="n#!!block;n#getRandomBlock#0" expanded="false" />
+            <element signature="n#!!block;n#generateStartingField#0" expanded="false" />
+            <element signature="n#!!block;n#blockHaslanded#0" expanded="false" />
+            <element signature="n#!!block;n#mergeBlockIntoField#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

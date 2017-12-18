@@ -25,18 +25,44 @@ export function getRandomBlock(){
     return new Block({x:COLS/2, y:1}, Math.round(Math.random()*5));
 }
 
-
-
-
-
-//this method checks is a operation can take place, for if the
-//block is not hitting the outher wall of the bottom of the field
+//this method checks is a operation can take place, for example if the
+//block is not hitting the wall of the field or another already landed block
 export function moveCanHappen(block : Block, direction : Direction , field:Field){
 
-    if (direction.name == LEFT && block.origin.x == 0){
-        return false;
-    } else if(direction.name == RIGHT && (block.origin.x + block.matrix[0].length) == COLS){
-        return false;
+    if (direction.name == LEFT){
+        if(block.origin.x == 0){
+            //does it hit the wall?
+            return false;
+        } else {
+            //does it hit another block?
+            let hitsBlock = block.matrix.some((row, rowIndex) => {
+                let rowStartOrigin = getElementOrigin(block.origin,rowIndex,0);
+                if(row[0].filled && field.cells[rowStartOrigin.y][rowStartOrigin.x-1].filled){
+                    //console.log("hits! left");
+                    return true;
+                }
+                return false;
+            });
+            return !hitsBlock;
+        }
+
+    } else if(direction.name == RIGHT){
+        if(block.origin.x + block.matrix[0].length == COLS){
+            //does it hit the wall?
+            return false;
+        } else {
+            //does it hit another block?
+            let hitsBlock = block.matrix.some((row, rowIndex) => {
+                let rowEndOrigin = getElementOrigin(block.origin,rowIndex,block.matrix[0].length-1);
+                if(row[block.matrix[0].length-1].filled && field.cells[rowEndOrigin.y][rowEndOrigin.x+1].filled){
+                    //console.log("hits! right")
+                    return true;
+                }
+                return false;
+            });
+            return !hitsBlock;
+        }
+
     }
     return true;
 }
@@ -83,10 +109,6 @@ export function blockHaslanded(scene) : boolean{
        // console.log("not landed !! ")
     return false;
     }
-}
-
-export function getRandBool(){
-    return Math.random() > 0.5 ? true : false;
 }
 
 export function mergeBlockIntoField(block:Block, field:Field){
