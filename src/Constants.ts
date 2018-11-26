@@ -1,4 +1,3 @@
-import {Direction} from "./Types";
 
 export const STARTING_SPEED = 5000;
 
@@ -11,7 +10,7 @@ export const PURPLE = "PURPLE"
 
 export const LEFT = "LEFT";
 export const RIGHT = "RIGHT";
-export const UP = "uP";
+export const UP = "UP";
 export const DOWN = "DOWN";
 
 export const DIRECTIONS = {

@@ -13,9 +13,6 @@ export enum Key {
 }
 
 
-/*export interface Direction {
-    [key: number]: {point : Point2D, name : string};
-}*/
 
 export interface Direction {
     x : number,
@@ -78,27 +75,11 @@ export class Block {
 
     }
 
-    rotateRight() : void{
-        var newMatrix = [];
-       // newMatrix.push([])
 
-            for (var i = this.matrix[0].length-1 ; i >=0 ; i--){
-                var arr = []
-                for (var j = 0 ; j < this.matrix.length ; j ++){
-                    //console.log(`${i} and ${j}`);
-                    var cell = this.matrix[j][i];
-                    arr.push(cell)
-                }
-                newMatrix.push(arr)
 
-        }
-        this.matrix = newMatrix;
-
-    }
-
-    getBottomRow() : Cell[]{
-        return this.matrix[this.matrix.length-1];
-    }
+    // getBottomRow() : Cell[]{
+    //     return this.matrix[this.matrix.length-1];
+    // }
 }
 
 
@@ -120,7 +101,7 @@ export interface Cell {
     color : string
 }
 
-export  interface Scene {
+export interface Scene {
     field : Field,
     block : Block
 }

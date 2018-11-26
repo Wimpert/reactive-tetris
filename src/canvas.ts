@@ -36,20 +36,7 @@ function renderBackground(ctx: CanvasRenderingContext2D) {
 }
 
 
-function getOriginIndividualBlocks(block:Block) : [Point2D]{
-    let points : [Point2D];
-    switch (block.type) {
-        case BlockType.LONG:
-            //console.log("long")
-            return points
-        default:
-            throw new Error;
-    }
-}
-
-
 function drawMatrix(ctx : CanvasRenderingContext2D, matrixOrigin : Point2D ,matrix: Cell[][]){
-
     matrix.forEach( (row, rowIndex) => {
         row.forEach( (cell, elementPositionInRow) => {
             if(cell.filled) {

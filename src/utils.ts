@@ -2,23 +2,20 @@ import {Block, BlockType, Cell, Direction, Field, Scene} from "./Types";
 import {COLS, getElementOrigin, ROWS} from "./canvas";
 import {DOWN, LEFT, RIGHT, UP} from "./Constants";
 
-export function move(block : Block, obj : {direction:Direction, field:Field}, index: number){
 
-    let scene : Scene = { field : obj.field , block :block};
-    if(blockHaslanded(scene)){
-        return getRandomBlock();
-    }
-
-    if(moveCanHappen(block,obj.direction, obj.field)){
-        let directionName = obj.direction.name;
-        if(directionName == UP){
-            block.rotateRight();
+export function move(block : Block,  direction:Direction, field:Field) : Block{
+    
+    if(moveCanHappen(block, direction, field)){
+        if(direction.name == UP){
+             return rotateBlockRight(block);
         } else {
-            block.origin.x += 1*obj.direction.x
-            block.origin.y += 1*obj.direction.y
+            const returnVal : Block = {...block}
+            returnVal.origin.x += 1*direction.x
+            returnVal.origin.y += 1*direction.y
+            return returnVal;
         }
     }
-   return block;
+    return block;
 }
 
 export function getRandomBlock(){
@@ -27,7 +24,7 @@ export function getRandomBlock(){
 
 //this method checks is a operation can take place, for example if the
 //block is not hitting the wall of the field or another already landed block
-export function moveCanHappen(block : Block, direction : Direction , field:Field){
+export function moveCanHappen(block : Block, direction : Direction , field:Field) : boolean{
 
     if (direction.name == LEFT){
         if(block.origin.x == 0){
@@ -63,6 +60,9 @@ export function moveCanHappen(block : Block, direction : Direction , field:Field
             return !hitsBlock;
         }
 
+    } else if(direction.name == DOWN){
+        //first check if he hits bottom of the field:
+        return !blockHaslanded({block:block,field:field});
     }
     return true;
 }
@@ -83,8 +83,8 @@ export function generateStartingField() :Field{
     return field;
 }
 
-export function blockHaslanded(scene) : boolean{
-    if((scene.block.origin.y + scene.block.matrix.length) >= ROWS){
+export function blockHaslanded(scene: Scene) : boolean{
+    if((scene.block.origin.y + scene.block.matrix.length) >= scene.field.cells.length-1){
         return true;
     } else {
         var rowIndex = 0;
@@ -104,15 +104,12 @@ export function blockHaslanded(scene) : boolean{
         }
         rowIndex++;
         }
-
-        //scene.block.getBottomRow().forEach((cell, position) => {})
-       // console.log("not landed !! ")
     return false;
     }
 }
 
+
 export function mergeBlockIntoField(block:Block, field:Field){
-   // console.log("merging");
     block.matrix.forEach( (row, rowIndex) => {
         row.forEach( (cell, elementPositionInRow) => {
             if(cell.filled) {
@@ -122,4 +119,30 @@ export function mergeBlockIntoField(block:Block, field:Field){
             }
         });
     });
+    return field;
 }
+
+function rotateBlockRight(block: Block): Block{
+
+    var newMatrix = [];
+    for (var i = block.matrix[0].length-1 ; i >=0 ; i--){
+        var arr = []
+        for (var j = 0 ; j < block.matrix.length ; j ++){
+            //console.log(`${i} and ${j}`);
+            var cell = block.matrix[j][i];
+            arr.push(cell)
+        }
+        newMatrix.push(arr)
+
+    }
+    return {...block, matrix:newMatrix};
+
+}
+
+export function findLinesInfield(field: Field) : number[]{
+    const returnVal = [];
+    console.log(field);
+    return returnVal;
+}
+
+

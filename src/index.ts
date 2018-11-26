@@ -1,27 +1,13 @@
-import {interval} from "rxjs/observable/interval";
-import {Observable} from "rxjs/Observable";
-import {fromEvent} from "rxjs/observable/fromEvent";
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
-import "rxjs/add/operator/mapTo";
-import "rxjs/add/operator/map";
+import { STARTING_SPEED, DIRECTIONS } from './Constants';
+import { Direction, Field, Block, Scene } from './Types';
+import { createCanvasElement, renderScene } from "./canvas";
 
-import {DIRECTIONS, STARTING_SPEED} from "./Constants";
-import "rxjs/add/operator/merge";
-import {createCanvasElement, renderScene} from "./canvas";
-import {BehaviorSubject} from "rxjs/BehaviorSubject";
-import "rxjs/add/operator/withLatestFrom";
-import {Block, Direction, Field, Scene} from "./Types";
-import {
-    blockHaslanded,
-    generateStartingField, getRandomBlock, mergeBlockIntoField, move
-} from "./utils";
-import "rxjs/add/operator/scan";
-import "rxjs/add/operator/filter";
-import "rxjs/add/operator/combineLatest";
-import "rxjs/add/operator/do";
-import "rxjs/add/operator/share";
-import {combineLatest} from "rxjs/observable/combineLatest";
-import "rxjs/add/operator/startWith";
+import { startWith, map, tap, scan, withLatestFrom, take, skip } from 'rxjs/operators';
+import { interval, combineLatest, merge, fromEvent } from 'rxjs';
+import { getRandomBlock, generateStartingField, move, blockHaslanded, mergeBlockIntoField, findLinesInfield } from './utils';
+
 
 /**
  * Create canvas element and append it to the page
@@ -29,68 +15,79 @@ import "rxjs/add/operator/startWith";
 let canvas = createCanvasElement();
 let ctx = canvas.getContext('2d');
 document.body.appendChild(canvas);
+const scoreContainter = document.createElement('div');
+document.body.appendChild(scoreContainter)
 
 
 
 //the game pulling down the block:
-let source$ : Observable<Direction> = interval(STARTING_SPEED)
-    .startWith(0)
-    //map to Down:
-    .map((x) => DIRECTIONS[40])
-    .share();
+let gameProgression$ : Observable<Direction> = interval(STARTING_SPEED).pipe(
+    startWith(0),
+    map( _ => DIRECTIONS[40])
+);
+   
 
 //user inputs:
-let  keydown$ : Observable<Direction> =  fromEvent(document, 'keydown')
+let  keydown$ : Observable<Direction> =  fromEvent(document, 'keydown').pipe(
     //map to corresponding direction:
-    .map((event : any) => DIRECTIONS[event.keyCode]);
+    map((event : any) => DIRECTIONS[event.keyCode])
+
+)
+    
+let blockLanded$ : Subject<Block> = new Subject<Block>();
+
+let field$ : Observable<Field> = merge(blockLanded$, gameProgression$.pipe(take(1))).pipe(
+    scan((previousField: Field, fieldevent: Block | Direction) => {
+            if(Object.keys(fieldevent).indexOf('origin') == -1){
+                return generateStartingField();
+            }
+            return mergeBlockIntoField(fieldevent as Block, previousField);
+    }, generateStartingField()),
+);
+
+let score$ : Observable<number> = field$.pipe(
+    skip(1),
+    scan((score: number, field: Field) => {
+        findLinesInfield(field);
+        return ++score;
+    }, 0),
+    startWith(0)
+);
+
+const block$ : Observable<Block> = merge( gameProgression$ , keydown$).pipe(
+    withLatestFrom(field$, (direction: Direction, field: Field) => {
+        return {direction: direction, field: field};
+    }),
+    scan((block: Block, object : {direction: Direction, field: Field}) => {
+        if(blockHaslanded({block: block, field : object.field})){
+            //write code to put the field in the block:
+            blockLanded$.next(block);
+            return getRandomBlock();
+        } else {
+            return move(block, object.direction, object.field);
+        }
+    }, getRandomBlock())
+);
 
 
-//this contains all operations (left, right, down and rotate) on a block, being from the game or being from the user:
-let blockOperations$ : Observable<Direction> =  source$.merge(keydown$)
-                                                        .share();
-
-//represents the actual playing field, being all the blocks that already landed
-let field$: BehaviorSubject<Field> = new BehaviorSubject(generateStartingField());
-
-
-
-//emits a new block value every time the block is moved:
-//i need the field here since, I need to check if the move can be done:
-let block$ : Observable<Block> = blockOperations$
-    .withLatestFrom(field$)
-    .map((arr) => { return {direction : arr[0] , field : arr[1]};})
-    .scan(move, getRandomBlock())
-    .share();
-
-//this will emit true, if the block has 'touchdown', false if it is still floating:
-let blockLanded$ = block$.withLatestFrom(field$)
-    .map(x => {
-        let scene : Scene = { field : x[1] , block : x[0]};
-        return scene;
-    })
-    .map(blockHaslanded)
-    .share();
+const scene$ = combineLatest(field$, block$).pipe(
+map(([field, block]) => {
+    const scene: Scene = {
+        field:field,
+        block:block
+    } 
+    return scene
+})
+);
 
 
-
-blockLanded$.withLatestFrom(field$,block$)
-    .subscribe((x) => {
-    //is it landed?
-        //console.log(x);
-        if(x[0]) {
-        //get the block:
-        let block : Block = x[2];
-        let field : Field = x[1];
-
-        mergeBlockIntoField(block,field);
-        field$.next(field);
-    } //if false no need for action:
-});
-
-let scene$: Observable<Scene> = combineLatest(field$, block$, (field, block) => ({field : field , block : block }));
 
 scene$.subscribe( (scene) => {
         renderScene(ctx,scene);
 });
 
-//renderScene(ctx, [[true]],  new Block({x:2, y:4}, BlockType.LSHAPERIGHT))
+
+score$.subscribe((score) => {
+    console.log(score);
+    scoreContainter.innerHTML = `${score}`;
+})
