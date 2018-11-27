@@ -19,7 +19,7 @@ export function move(block : Block,  direction:Direction, field:Field) : Block{
 }
 
 export function getRandomBlock(){
-    return new Block({x:COLS/2, y:1}, Math.round(Math.random()*5));
+    return new Block({x:Math.round(COLS/2), y:1}, Math.round(Math.random()*5));
 }
 
 //this method checks is a operation can take place, for example if the
@@ -70,16 +70,16 @@ export function moveCanHappen(block : Block, direction : Direction , field:Field
 export function generateStartingField() :Field{
 
   var field : Field = {cells:[[]]};
-    for (var row = 0 ; row < ROWS ; row++){
+  var rows : Cell[][] = []
+    for (var rowIndex = 0 ; rowIndex <= ROWS ; rowIndex++){
         //for every col:
-        var collCells : Cell[] = [];
+        var row : Cell[] = [];
         for( var col = 0 ; col < COLS ; col++){
-            collCells[col] = {filled: false, color: "BROWN"}
+            row[col] = {filled: false, color: "BROWN"}
         }
-        field.cells.push(collCells)
+        rows.push(row)
     }
-
-    //field.cells = cells;
+    field.cells = rows;
     return field;
 }
 
@@ -140,9 +140,12 @@ function rotateBlockRight(block: Block): Block{
 }
 
 export function findLinesInfield(field: Field) : number[]{
-    const returnVal = [];
-    console.log(field);
-    return returnVal;
+    return field.cells.reduce((lines : number[], row : Cell[], rowIndex: number)=>{
+        if(!row.some(cell => !cell.filled)){
+            return [... lines, rowIndex];
+        }
+        return [... lines];
+    },[])
 }
 
 

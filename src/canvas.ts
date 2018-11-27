@@ -1,7 +1,7 @@
 import {Block, BlockType, Cell, Field, Point2D, Scene} from "./Types";
 
-export const COLS = 30;
-export const ROWS = 30;
+export const COLS = 15;
+export const ROWS = 10;
 export const GAP_SIZE = 1;
 export const CELL_SIZE = 10;
 export const CANVAS_WIDTH = COLS * (CELL_SIZE + GAP_SIZE);

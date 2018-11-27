@@ -4,7 +4,7 @@ import { STARTING_SPEED, DIRECTIONS } from './Constants';
 import { Direction, Field, Block, Scene } from './Types';
 import { createCanvasElement, renderScene } from "./canvas";
 
-import { startWith, map, tap, scan, withLatestFrom, take, skip } from 'rxjs/operators';
+import { startWith, map, tap, scan, withLatestFrom, take, skip, shareReplay } from 'rxjs/operators';
 import { interval, combineLatest, merge, fromEvent } from 'rxjs';
 import { getRandomBlock, generateStartingField, move, blockHaslanded, mergeBlockIntoField, findLinesInfield } from './utils';
 
@@ -39,16 +39,17 @@ let blockLanded$ : Subject<Block> = new Subject<Block>();
 let field$ : Observable<Field> = merge(blockLanded$, gameProgression$.pipe(take(1))).pipe(
     scan((previousField: Field, fieldevent: Block | Direction) => {
             if(Object.keys(fieldevent).indexOf('origin') == -1){
-                return generateStartingField();
+                return previousField;
             }
             return mergeBlockIntoField(fieldevent as Block, previousField);
     }, generateStartingField()),
+    shareReplay()
 );
 
 let score$ : Observable<number> = field$.pipe(
     skip(1),
     scan((score: number, field: Field) => {
-        findLinesInfield(field);
+       console.log('lines', findLinesInfield(field));
         return ++score;
     }, 0),
     startWith(0)
@@ -88,6 +89,5 @@ scene$.subscribe( (scene) => {
 
 
 score$.subscribe((score) => {
-    console.log(score);
     scoreContainter.innerHTML = `${score}`;
 })

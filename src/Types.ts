@@ -93,7 +93,7 @@ export enum BlockType {
 }
 
 export interface Field{
-    cells : [Cell[]]
+    cells : Cell[][]
 }
 
 export interface Cell {
