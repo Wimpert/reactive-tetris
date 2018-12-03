@@ -46,14 +46,19 @@ let field$ : Observable<Field> = merge(blockLanded$, gameProgression$.pipe(take(
     shareReplay()
 );
 
-let score$ : Observable<number> = field$.pipe(
+let linesMade$ : Observable<number[]> = field$.pipe(
+    map((field:Field) => findLinesInfield(field))
+);
+
+let score$ : Observable<number> = linesMade$.pipe(
     skip(1),
-    scan((score: number, field: Field) => {
-       console.log('lines', findLinesInfield(field));
-        return ++score;
+    scan((score: number, lines: number[]) => {
+        return score+lines.length;
     }, 0),
     startWith(0)
 );
+
+
 
 const block$ : Observable<Block> = merge( gameProgression$ , keydown$).pipe(
     withLatestFrom(field$, (direction: Direction, field: Field) => {
